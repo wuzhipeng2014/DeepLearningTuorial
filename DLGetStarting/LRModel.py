@@ -84,6 +84,84 @@ print ("db = " + str(grads["db"]))
 print ("cost = " + str(cost))
 
 
+print("##测试optimize函数##")
+params, grads, costs = optimize(w, b, X, Y, num_iterations= 100, learning_rate = 0.009, print_cost = False)
+
+print ("w = " + str(params["w"]))
+print ("b = " + str(params["b"]))
+print ("dw = " + str(grads["dw"]))
+print ("db = " + str(grads["db"]))
+
+
+print ("predictions = " + str(predict(w, b, X)))
+
+
+d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 2000, learning_rate = 0.005, print_cost = True)
+
+
+
+# Example of a picture that was wrongly classified.
+index = 1
+plt.imshow(test_set_x[:,index].reshape((num_px, num_px, 3)))
+plt.show()
+
+print("y = " + str(test_set_y[0,index]))
+print("predictY="+str(d["Y_prediction_test"][0,index]))
+
+print ("y = " + str(test_set_y[0,index]) + ", you predicted that it is a \"" + classes[int(d["Y_prediction_test"][0,index]),].decode("utf-8") +  "\" picture.")
+
+
+
+
+
+
+# Plot learning curve (with costs)
+costs = np.squeeze(d['costs'])
+plt.plot(costs)
+plt.ylabel('cost')
+plt.xlabel('iterations (per hundreds)')
+plt.title("Learning rate =" + str(d["learning_rate"]))
+plt.show()
+
+
+
+
+
+
+
+learning_rates = [0.01, 0.001, 0.0001]
+models = {}
+for i in learning_rates:
+    print ("learning rate is: " + str(i))
+    models[str(i)] = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 1500, learning_rate = i, print_cost = False)
+    print ('\n' + "-------------------------------------------------------" + '\n')
+
+for i in learning_rates:
+    plt.plot(np.squeeze(models[str(i)]["costs"]), label= str(models[str(i)]["learning_rate"]))
+
+plt.ylabel('cost')
+plt.xlabel('iterations')
+
+legend = plt.legend(loc='upper center', shadow=True)
+frame = legend.get_frame()
+frame.set_facecolor('0.90')
+plt.show()
+
+
+## START CODE HERE ## (PUT YOUR IMAGE NAME)
+my_image = "my_image.jpg"   # change this to the name of your image file
+## END CODE HERE ##
+
+# We preprocess the image to fit your algorithm.
+fname = "images/" + my_image
+image = np.array(ndimage.imread(fname, flatten=False))
+my_image = scipy.misc.imresize(image, size=(num_px,num_px)).reshape((1, num_px*num_px*3)).T
+my_predicted_image = predict(d["w"], d["b"], my_image)
+
+plt.imshow(image)
+plt.show()
+print("y = " + str(np.squeeze(my_predicted_image)) + ", your algorithm predicts a \"" + classes[int(np.squeeze(my_predicted_image)),].decode("utf-8") +  "\" picture.")
+
 
 
 
