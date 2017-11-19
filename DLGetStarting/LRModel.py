@@ -6,7 +6,10 @@ import h5py
 import scipy
 from PIL import Image
 from scipy import ndimage
-from utils.lr_utils import load_dataset
+
+from utils.Functions import *
+from utils.lr_utils import *
+import math
 
 
 
@@ -20,7 +23,7 @@ train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_datas
 # Example of a picture
 index = 25
 plt.imshow(train_set_x_orig[index])
-plt.show()
+# plt.show()
 
 
 
@@ -47,7 +50,7 @@ print ("test_set_y shape: " + str(test_set_y.shape))
 
 ### START CODE HERE ### (≈ 2 lines of code)
 train_set_x_flatten = train_set_x_orig.reshape(train_set_x_orig.shape[0],-1).T
-test_set_x_flatten = None
+test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[0],-1).T
 ### END CODE HERE ###
 
 print ("train_set_x_flatten shape: " + str(train_set_x_flatten.shape))
@@ -55,6 +58,34 @@ print ("train_set_y shape: " + str(train_set_y.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
 print ("test_set_y shape: " + str(test_set_y.shape))
 print ("sanity check after reshaping: " + str(train_set_x_flatten[0:5,0]))
+
+
+##  standardize the dataset.
+train_set_x = train_set_x_flatten/255.
+test_set_x = test_set_x_flatten/255.
+
+
+print("## 测试si(np.multiply(Y,A)+np.multiply(1-Y,1-A)gmod函数")
+print ("sigmoid([0, 2]) = " + str(sigmoid(np.array([0,2]))))
+
+print("##测试参数初始化函数")
+dim = 2
+w, b = initialize_with_zeros(dim)
+print ("w = " + str(w))
+print ("b = " + str(b))
+
+
+print("测试正向传播函数")
+
+w, b, X, Y = np.array([[1],[2]]), 2, np.array([[1,2],[3,4]]), np.array([[1,0]])
+grads, cost = propagate(w, b, X, Y)
+print ("dw = " + str(grads["dw"]))
+print ("db = " + str(grads["db"]))
+print ("cost = " + str(cost))
+
+
+
+
 
 
 
