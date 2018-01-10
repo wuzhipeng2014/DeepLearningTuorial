@@ -73,7 +73,7 @@ train_x_min=train_x.min(axis=1)
 train_x_mean = scaled_train_x.mean(axis=1)
 train_x_std = scaled_train_x.std(axis=1)
 
-test_matrix = np.loadtxt(open("/home/zhipengwu/secureCRT/train_toutiao_origin_feature_20180109.csv", "rb"),
+test_matrix = np.loadtxt(open("/home/zhipengwu/secureCRT/test_toutiao_origin_feature_20180109.csv", "rb"),
                          delimiter=",", skiprows=0)
 test_x_origin = test_matrix[:, 1:]
 test_y = test_matrix[:, 0].reshape(1, -1)
