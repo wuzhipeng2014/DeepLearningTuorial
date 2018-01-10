@@ -163,6 +163,3 @@ if dataset == "blobs":
 # Visualize the data
 plt.scatter(X[0, :], X[1, :], c=Y, s=40, cmap=plt.cm.Spectral)
 plt.show()
-
-
-
