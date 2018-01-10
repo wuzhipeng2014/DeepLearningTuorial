@@ -9,16 +9,14 @@ from scipy import ndimage
 
 from utils.Functions import *
 from utils.lr_utils import *
-import math
 
+import math
 
 
 print("lr model test")
 
 # Loading the data (cat/non-cat)
 train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_dataset()
-
-
 
 # Example of a picture
 index = 25
@@ -112,9 +110,6 @@ print ("y = " + str(test_set_y[0,index]) + ", you predicted that it is a \"" + c
 
 
 
-
-
-
 # Plot learning curve (with costs)
 costs = np.squeeze(d['costs'])
 plt.plot(costs)
@@ -122,11 +117,6 @@ plt.ylabel('cost')
 plt.xlabel('iterations (per hundreds)')
 plt.title("Learning rate =" + str(d["learning_rate"]))
 plt.show()
-
-
-
-
-
 
 
 learning_rates = [0.01, 0.001, 0.0001]
