@@ -99,7 +99,7 @@ max_min_normalization(test_x,test_x_max,test_x_min)
 # standard_deviation_normalization(test_x,test_x_mean,test_x_std)
 
 
-layers_dims = [38, 25,28,15,10,5, 1]  # 5-layer model
+layers_dims = [38,200,150,100,70,50,35, 28,22,15,10,5, 1]  # 5-layer model
 
 parameters = L_layer_model(train_x, train_y, layers_dims, num_iterations=30000, print_cost=True)
 
