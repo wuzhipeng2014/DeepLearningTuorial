@@ -142,7 +142,7 @@ from scipy import ndimage
 
 ## START CODE HERE ## (PUT YOUR IMAGE NAME)
 my_image = "thumbs_up_org.jpg"
-my_image = "thumbs_up2.jpg"
+my_image = "thumbs_up.jpg"
 ## END CODE HERE ##
 
 # We preprocess your image to fit your algorithm.
