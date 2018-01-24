@@ -21,7 +21,7 @@ X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
 index = 6
 plt.imshow(X_train_orig[index])
 print ("y = " + str(np.squeeze(Y_train_orig[:, index])))
-plt.show()
+# plt.show()
 
 
 print("所有的分类: "+ str( classes))
@@ -54,3 +54,36 @@ with tf.Session() as sess_test:
     print("W2 = " + str(parameters["W2"].eval()[1,1,1]))
 
 
+## 前向传播
+
+
+tf.reset_default_graph()
+
+with tf.Session() as sess:
+    np.random.seed(1)
+    X, Y = create_placeholders(64, 64, 3, 6)
+    parameters = initialize_parameters()
+    Z3 = forward_propagation(X, parameters)
+    init = tf.global_variables_initializer()
+    sess.run(init)
+    a = sess.run(Z3, {X: np.random.randn(2,64,64,3), Y: np.random.randn(2,6)})
+    print("Z3 = " + str(a))
+
+## 计算损失函数
+
+tf.reset_default_graph()
+
+with tf.Session() as sess:
+    np.random.seed(1)
+    X, Y = create_placeholders(64, 64, 3, 6)
+    parameters = initialize_parameters()
+    Z3 = forward_propagation(X, parameters)
+    cost = compute_cost(Z3, Y)
+    init = tf.global_variables_initializer()
+    sess.run(init)
+    a = sess.run(cost, {X: np.random.randn(4,64,64,3), Y: np.random.randn(4,6)})
+    print("cost = " + str(a))
+
+
+## 组装模型
+_, _, parameters = model(X_train, Y_train, X_test, Y_test)
