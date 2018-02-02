@@ -76,7 +76,7 @@ preds = model.evaluate(X_test, Y_test)
 print ("Loss = " + str(preds[0]))
 print ("Test Accuracy = " + str(preds[1]))
 
-model.save("model/resnet.model")
+# model.save("model/resnet.model")
 
 
 ## 加载训练好的resnet50
