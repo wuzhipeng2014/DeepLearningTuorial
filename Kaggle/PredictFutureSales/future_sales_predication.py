@@ -116,6 +116,8 @@ for c in ['shop_name','item_name','item_category_name']:
 
 ## Train & Predict Models
 col = [c for c in train.columns if c not in ['item_cnt_month']]
+
+print("####col: "+str(col))
 #Validation Hold Out Month
 x1 = train[train['date_block_num']<33]
 y1 = np.log1p(x1['item_cnt_month'].clip(0.,20.))
@@ -124,7 +126,9 @@ x2 = train[train['date_block_num']==33]
 y2 = np.log1p(x2['item_cnt_month'].clip(0.,20.))
 x2 = x2[col]
 
-reg = ensemble.ExtraTreesRegressor(n_estimators=25, n_jobs=-1, max_depth=15, random_state=18)
+# reg = ensemble.ExtraTreesRegressor(n_estimators=25, n_jobs=-1, max_depth=15, random_state=18)
+from sklearn.tree import DecisionTreeRegressor
+reg = ensemble.AdaBoostRegressor(DecisionTreeRegressor(max_depth=7),n_estimators=25, random_state=18)
 reg.fit(x1,y1)
 print('RMSE:', np.sqrt(metrics.mean_squared_error(y2.clip(0.,20.),reg.predict(x2).clip(0.,20.))))
 
